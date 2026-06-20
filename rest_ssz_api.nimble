@@ -2,10 +2,10 @@
 
 version       = "0.1.0"
 author        = "Sagar Rana"
-description   = "A new awesome nimble package"
+description   = "REST + SSZ Engine API"
 license       = "MIT"
 srcDir        = "src"
-bin           = @["nim_api"]
+bin           = @["rest_ssz_api"]
 
 
 # Dependencies

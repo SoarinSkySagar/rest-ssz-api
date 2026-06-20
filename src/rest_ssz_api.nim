@@ -29,7 +29,7 @@ when isMainModule:
     port = Port(9000),
     allowedOrigin = none(string),
     validateFn = validate,
-    ident = "nim-api",
+    ident = "rest_ssz_api",
     config = config
   )
 

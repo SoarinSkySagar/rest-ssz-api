@@ -16,5 +16,5 @@ Build & run
 
 ```
 nimble build
-./nim_api
+./rest_ssz_api
 ```
