@@ -1,4 +1,4 @@
-# Nim-API for REST-SSZ implementation on Nimbus EL (Demo)
+# Nim API for REST-SSZ implementation on Nimbus EL (Demo)
 
 Install deps
 
