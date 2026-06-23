@@ -12,3 +12,5 @@ bin           = @["rest_ssz_api"]
 
 requires "nim >= 2.2.10"
 requires "presto"
+requires "ssz_serialization"
+requires "serialization"

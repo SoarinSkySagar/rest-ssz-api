@@ -16,3 +16,4 @@ nimblecache/
 nimble.paths
 nimble.develop
 *.nimble.paths
+nimbledeps

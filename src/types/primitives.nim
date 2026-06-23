@@ -1,6 +1,13 @@
 ## SSZ primitive aliases, generic wrapper types and `MAX_*` constants
 ## from refactor-ssz.md (Engine API v2 -- SSZ Container Sketches).
 ## Type definitions only.
+##
+## The generic SSZ wrapper types (`List`, `ByteList`, `ByteVector`, `BitArray`)
+## come from `ssz_serialization` and are re-exported here, so containers built
+## on them round-trip through `SSZ.encode` / `SSZ.decode` directly.
+
+import ssz_serialization/types
+export List, ByteList, ByteVector, BitArray
 
 const
   MAX_BYTES_PER_TX* = 1 shl 30                 # 2**30 (1,073,741,824)
@@ -32,24 +39,16 @@ const
 
 type
   # --- generic SSZ wrapper types ---
-  List*[T; N: static int] = object
-    ## SSZ `List[T, N]`: variable-length, at most N elements.
-    data*: seq[T]
+  # `List[T; maxLen]`, `ByteList[maxLen]`, `ByteVector[maxLen]` and `BitArray`
+  # are re-exported from ssz_serialization (see the `export types` above).
+  # Only the spec aliases that the library does not name directly are defined
+  # here.
 
-  ByteList*[N: static int] = object
-    ## SSZ `ByteList[N]` ≡ `List[byte, N]`.
-    data*: seq[byte]
-
-  ByteVector*[N: static int] = array[N, byte]
-    ## SSZ fixed-size byte vector.
-
-  Optional*[T] = object
+  Optional*[T] = List[T, 1]
     ## SSZ `Optional[T]` ≡ `List[T, 1]` (len 0 = absent, len 1 = present).
-    data*: seq[T]
 
-  Bitvector*[N: static int] = object
-    ## SSZ `Bitvector[N]`: N bits packed into ceil(N/8) bytes.
-    bits*: array[(N + 7) div 8, byte]
+  Bitvector*[N: static int] = BitArray[N]
+    ## SSZ `Bitvector[N]` ≡ ssz_serialization `BitArray[N]`.
 
   # --- primitive aliases ---
   Hash32* = ByteVector[32]          ## block / payload hashes
