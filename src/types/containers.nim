@@ -1,9 +1,9 @@
 import primitives
 import common
-import forks/[paris, shanghai, cancun, prague, osaka, amsterdam]
+import forks/[fork, paris, shanghai, cancun, prague, osaka, amsterdam]
 
 export primitives, common
-export paris, shanghai, cancun, prague, osaka, amsterdam
+export fork, paris, shanghai, cancun, prague, osaka, amsterdam
 
 type
 
