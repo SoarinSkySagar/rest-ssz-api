@@ -1,4 +1,5 @@
 import ../containers
+import v2
 
 type
     BlobsV3Response* = object  # reuses BlobV2Entry; no separate BlobV3Entry
