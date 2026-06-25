@@ -10,6 +10,9 @@ nimcache/
 *.so
 *.dylib
 
+# Request log (append-only, generated at runtime)
+requests.txt
+
 # Nimble build output and machine-specific generated paths
 build/
 nimblecache/

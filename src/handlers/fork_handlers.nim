@@ -1,6 +1,7 @@
 import presto
 import ../types/containers
 import decode_ssz
+import request_log
 
 func validFork(fork: Result[string, cstring]): Result[Fork, RestApiResponse] =
   let name = fork.valueOr:
@@ -30,8 +31,8 @@ proc handleNewPayload*(fork: Result[string, cstring],
 
   let envelope = decodeSszBody(contentBody, ExecutionPayloadEnvelopeAmsterdam).valueOr:
     return error
+  recordRequest(envelope)
   # TODO: validate `envelope`; invalid field values -> invalidBodyResponse() (422).
-  discard envelope
 
   # Hardcoded VALID
   var status: PayloadStatus
@@ -60,8 +61,8 @@ proc handleForkchoiceUpdated*(fork: Result[string, cstring],
 
   let update = decodeSszBody(contentBody, ForkchoiceUpdateAmsterdam).valueOr:
     return error
+  recordRequest(update)
   # TODO: process `update`
-  discard update
 
   var fcuResponse: ForkchoiceUpdateResponse
   encodeSszResponse(fcuResponse)
@@ -73,6 +74,7 @@ proc handleGetPayloadBodiesByHash*(fork: Result[string, cstring],
 
   let request = decodeSszBody(contentBody, BodiesByHashRequest).valueOr:
     return error
+  recordRequest(request)
 
   var bodies: BodiesResponse[ExecutionPayloadBodyAmsterdam]
   for _ in 0 ..< request.block_hashes.len:
